@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ServiceInfo;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Handler;
@@ -50,7 +51,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     IntentFilter filter = new IntentFilter("com.notsarv.quickcopy.ACTION_TRIGGER_OCR");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      registerReceiver(triggerReceiver, filter, Context.RECEIVER_EXPORTED);
+      registerReceiver(triggerReceiver, filter, Context.RECEIVER_NOT_EXPORTED);
     } else {
       registerReceiver(triggerReceiver, filter);
     }
@@ -76,10 +77,16 @@ public class MyAccessibilityService extends AccessibilityService {
             .setContentTitle("QuickCopy is Running")
             .setContentText("Service is ready")
             .setSmallIcon(R.drawable.ic_ocr)
+            .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build();
 
-    startForeground(NOTIFICATION_ID, notification);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+      startForeground(
+          NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+    } else {
+      startForeground(NOTIFICATION_ID, notification);
+    }
   }
 
   @Override

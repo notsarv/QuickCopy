@@ -1,6 +1,8 @@
 package com.notsarv.quickcopy;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -22,6 +26,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+  private static final int NOTIFICATION_REQUEST_CODE = 1001;
 
   private MaterialCardView cardPermissions;
   private MaterialButton btnGrantOverlay, btnGrantAccessibility;
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
           }
           ExportUtils.exportData(MainActivity.this, allScans);
         });
-		
+
     searchBtn.setOnClickListener(
         v -> {
           if (searchLayout.getVisibility() == View.VISIBLE) {
@@ -118,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     checkBatteryOptimization();
+	  checkNotificationPermission();
   }
 
   @Override
@@ -194,5 +201,18 @@ public class MainActivity extends AppCompatActivity {
     List<ScanResult> filteredList = databaseHelper.searchScans(query);
     HistoryAdapter adapter = new HistoryAdapter(filteredList, this::showDetailDialog);
     recyclerView.setAdapter(adapter);
+  }
+
+  private void checkNotificationPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      if (ContextCompat.checkSelfPermission(
+              MainActivity.this, Manifest.permission.POST_NOTIFICATIONS)
+          != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(
+            MainActivity.this,
+            new String[] {Manifest.permission.POST_NOTIFICATIONS},
+            NOTIFICATION_REQUEST_CODE);
+      }
+    }
   }
 }
