@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">QuickCopy</string>
+	  <string name="accessibility_service_description">OCR Helper Service</string>
+</resources>

@@ -1,0 +1,4 @@
+<paths>
+    <files-path name="my_scans" path="scans/" />
+    <cache-path name="my_exports" path="exports/" />
+</paths>

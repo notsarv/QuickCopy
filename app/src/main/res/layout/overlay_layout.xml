@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+	android:background="@drawable/bg_overlay_rounded"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Text Found"
+            android:textColor="#1A1C1E"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:alpha="0.6"
+			android:background="#FFFFFF"
+            android:src="@drawable/ic_close" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ocr_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:gravity="top|start"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:scrollbars="vertical"
+        android:textColor="#424242"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/copy_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Copy to Clipboard"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>
