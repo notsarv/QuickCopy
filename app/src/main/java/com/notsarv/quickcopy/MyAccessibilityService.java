@@ -150,7 +150,8 @@ public class MyAccessibilityService extends AccessibilityService {
 
     } catch (Exception e) {
       e.printStackTrace();
-      runOCR(originalBitmap, null);
+      String savedPath = StorageUtils.saveBitmapToInternalStorage(this, originalBitmap);
+      runOCR(originalBitmap, savedPath);
     }
   }
 
