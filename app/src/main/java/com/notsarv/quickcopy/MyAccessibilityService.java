@@ -76,7 +76,7 @@ public class MyAccessibilityService extends AccessibilityService {
         new NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("QuickCopy is Running")
             .setContentText("Service is ready")
-            .setSmallIcon(R.drawable.ic_ocr)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setOngoing(true)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build();
